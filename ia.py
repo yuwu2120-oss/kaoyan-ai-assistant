@@ -8,8 +8,7 @@ st.set_page_config(page_title="考研复试AI助教", page_icon="🎓", layout="
 # --- 侧边栏：配置区 ---
 with st.sidebar:
     st.title("⚙️ 系统配置")
-    # 建议把Key放在这里输入，或者你可以直接在代码里写死 api_key="sk-xxxx"
-    # 这样写代表从 Streamlit 的云端保险箱读取 Key
+    # 从 Streamlit 的云端保险箱读取 Key
 if "DEEPSEEK_KEY" in st.secrets:
     api_key = st.secrets["DEEPSEEK_KEY"]
 else:
@@ -118,7 +117,7 @@ with col2:
                 supervisor_info = search_supervisor_info(supervisor_name, target_school)
                 st.write("✅ 导师情报获取成功！")
                 
-                st.write("🧠 AI 正在生成刁钻问题...")
+                st.write("🧠 正在针对性分析问题...")
                 result = generate_interview_guide(client, resume_text, target_school, supervisor_info)
                 status.update(label="生成完毕！", state="complete", expanded=False)
             
@@ -126,3 +125,4 @@ with col2:
             st.markdown(result)
 
             st.success("请面试官根据上述问题进行提问，并记录考生反应。")
+
