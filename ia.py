@@ -9,7 +9,11 @@ st.set_page_config(page_title="考研复试AI助教", page_icon="🎓", layout="
 with st.sidebar:
     st.title("⚙️ 系统配置")
     # 建议把Key放在这里输入，或者你可以直接在代码里写死 api_key="sk-xxxx"
-    api_key = "sk-443d4d0b2a3a4b45a43a1025eeb226c5"
+    # 这样写代表从 Streamlit 的云端保险箱读取 Key
+if "DEEPSEEK_KEY" in st.secrets:
+    api_key = st.secrets["DEEPSEEK_KEY"]
+else:
+    api_key = st.sidebar.text_input("请输入 DeepSeek API Key", type="password")
     st.markdown("---")
     st.info("💡 **使用说明**：\n1. 输入考生简历摘要\n2. 输入报考导师姓名\n3. AI会自动联网搜索导师信息\n4. 生成针对性的“杀手锏”问题")
 
@@ -120,4 +124,5 @@ with col2:
             
             # 3. 展示结果
             st.markdown(result)
+
             st.success("请面试官根据上述问题进行提问，并记录考生反应。")
